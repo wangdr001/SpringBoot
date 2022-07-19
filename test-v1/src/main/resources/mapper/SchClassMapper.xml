@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzj.dao.SchClassMapper">
+  <resultMap id="BaseResultMap" type="com.gzj.model.SchClass">
+    <id column="class_id" jdbcType="BIGINT" property="classId" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    class_id, class_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_class
+    where class_id = #{classId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_class
+    where class_id = #{classId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.gzj.model.SchClass">
+    insert into tb_class (class_id, class_name)
+    values (#{classId,jdbcType=BIGINT}, #{className,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gzj.model.SchClass">
+    insert into tb_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="className != null">
+        class_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        #{classId,jdbcType=BIGINT},
+      </if>
+      <if test="className != null">
+        #{className,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gzj.model.SchClass">
+    update tb_class
+    <set>
+      <if test="className != null">
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where class_id = #{classId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gzj.model.SchClass">
+    update tb_class
+    set class_name = #{className,jdbcType=VARCHAR}
+    where class_id = #{classId,jdbcType=BIGINT}
+  </update>
+
+  <!-- 自定义sql语句 -->
+  <insert id="insertSchClass" parameterType="com.gzj.model.SchClass" >
+    insert into tb_class (class_name) values (#{className} )
+  </insert>
+
+  <update id="updateSchClass" parameterType="com.gzj.model.SchClass" >
+    update tb_class set class_name=#{className}
+    where class_id = #{classId}
+  </update>
+
+  <delete id="deleteClassByNumber" parameterType="string" >
+    delete from tb_class where class_name = #{className}
+  </delete>
+
+</mapper>

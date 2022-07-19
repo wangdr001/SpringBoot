@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /springboot/test-v2
+    encoding:
+      charset: UTF-8
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mysql_test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml,classpath:mapper/**/*Mapper.xml
+  #mybatis-plus的日志开启配置，不能使用mybatis的，会找不到
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+image:
+  size: 3
+  type: image/jpeg

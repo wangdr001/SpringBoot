@@ -1,0 +1,21 @@
+2022-07-13 22:59:37,503 [main] INFO  -[StartupInfoLogger.java:55]- Starting TestV1Application using Java 1.8.0_281 on DESKTOP-0QQ1F45 with PID 964 (E:\guanzhijie-SpringBoot\test-v1\target\classes started by wdr in E:\guanzhijie-SpringBoot\test-v1)
+2022-07-13 22:59:37,507 [main] INFO  -[SpringApplication.java:634]- No active profile set, falling back to 1 default profile: "default"
+2022-07-13 22:59:38,384 [main] INFO  -[TomcatWebServer.java:108]- Tomcat initialized with port(s): 8080 (http)
+2022-07-13 22:59:38,392 [main] INFO  -[DirectJDKLog.java:173]- Initializing ProtocolHandler ["http-nio-8080"]
+2022-07-13 22:59:38,392 [main] INFO  -[DirectJDKLog.java:173]- Starting service [Tomcat]
+2022-07-13 22:59:38,393 [main] INFO  -[DirectJDKLog.java:173]- Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-07-13 22:59:38,475 [main] INFO  -[DirectJDKLog.java:173]- Initializing Spring embedded WebApplicationContext
+2022-07-13 22:59:38,475 [main] INFO  -[ServletWebServerApplicationContext.java:292]- Root WebApplicationContext: initialization completed in 916 ms
+2022-07-13 22:59:38,951 [main] INFO  -[DirectJDKLog.java:173]- Starting ProtocolHandler ["http-nio-8080"]
+2022-07-13 22:59:38,963 [main] INFO  -[TomcatWebServer.java:220]- Tomcat started on port(s): 8080 (http) with context path '/springboot/test'
+2022-07-13 22:59:38,968 [main] INFO  -[StartupInfoLogger.java:61]- Started TestV1Application in 1.751 seconds (JVM running for 2.083)
+2022-07-13 22:59:50,439 [http-nio-8080-exec-2] INFO  -[DirectJDKLog.java:173]- Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-07-13 22:59:50,439 [http-nio-8080-exec-2] INFO  -[FrameworkServlet.java:525]- Initializing Servlet 'dispatcherServlet'
+2022-07-13 22:59:50,440 [http-nio-8080-exec-2] INFO  -[FrameworkServlet.java:547]- Completed initialization in 1 ms
+2022-07-13 23:00:28,550 [http-nio-8080-exec-5] INFO  -[LoginInterceptor.java:26]- 验证通过
+2022-07-13 23:00:28,563 [http-nio-8080-exec-5] INFO  -[AopPrintConstController.java:43]- class模块方法执行开始
+2022-07-13 23:00:28,589 [http-nio-8080-exec-5] INFO  -[HikariDataSource.java:110]- HikariPool-1 - Starting...
+2022-07-13 23:00:29,007 [http-nio-8080-exec-5] INFO  -[HikariDataSource.java:123]- HikariPool-1 - Start completed.
+2022-07-13 23:00:29,040 [http-nio-8080-exec-5] INFO  -[AopPrintConstController.java:51]- class模块方法执行结束
+2022-07-13 23:00:57,148 [SpringApplicationShutdownHook] INFO  -[HikariDataSource.java:350]- HikariPool-1 - Shutdown initiated...
+2022-07-13 23:00:57,155 [SpringApplicationShutdownHook] INFO  -[HikariDataSource.java:352]- HikariPool-1 - Shutdown completed.

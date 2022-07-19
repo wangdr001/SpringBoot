@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--日志配置-->
+<configuration>
+    <!--直接定义属性(全局变量)-->
+    <!-- 定义日志存储位置变量，可以是相对路径也可以是绝对路径 -->
+    <property name="testLogFile" value="logs/testLog"/>
+    <property name="serviceLogFile" value="logs/serviceLog"/>
+    <property name="controllerLogFile" value="logs/controllerLog"/>
+    <!-- 单个日志文件大小 -->
+    <property name="maxFileSize" value="3MB"/>
+
+    <!--控制台日志-->
+    <!-- appender类似于一个日志格式化模板，描述了日志的格式、规则、输出形式等 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- %d代表日期，%thread代表线程名，%-5level表示级别从左显示 5 个字符宽度，
+            %logger{50}表示 Logger 名字最长 50 个字符，[%file:%line]表示哪个类文件和第几行，
+            %msg代表日志消息，%n代表换行-->
+            <pattern>%d [%thread] %-5level %logger{50} -[%file:%line]- %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--滚动文件日志-->
+    <appender name="testFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${testLogFile}.log</file>
+        <encoder>
+            <!--日志输出格式-->
+            <pattern>%d [%thread] %-5level -[%file:%line]- %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${testLogFile}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="serviceFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${serviceLogFile}.log</file>
+        <encoder>
+            <!--日志输出格式-->
+            <pattern>%d [%thread] %-5level -[%file:%line]- %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${serviceLogFile}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="controllerFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${controllerLogFile}.log</file>
+        <encoder>
+            <!--日志输出格式-->
+            <pattern>%d [%thread] %-5level -[%file:%line]- %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${controllerLogFile}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+            <!--只保留最近30天的日志-->
+            <maxHistory>30</maxHistory>
+            <!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志-->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <!--创建一个具体的日志输出-->
+    <logger name="com.gzj.controller" level="info" additivity="true">
+        <!--可以有多个appender-ref，即将日志记录到不同的位置-->
+        <!-- <appender-ref ref="STDOUT"/> -->
+        <appender-ref ref="controllerFile"/>
+    </logger>
+    <logger name="com.gzj.service" level="info" additivity="true">
+        <!--可以有多个appender-ref，即将日志记录到不同的位置-->
+        <!-- <appender-ref ref="STDOUT"/> -->
+        <appender-ref ref="serviceFile"/>
+    </logger>
+
+    <!--基础的日志输出-->
+    <root level="info">
+        <appender-ref ref="testFile" />
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

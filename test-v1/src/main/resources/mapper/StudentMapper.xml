@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzj.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.gzj.model.Student">
+    <id column="student_id" jdbcType="BIGINT" property="studentId" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="class_id" jdbcType="BIGINT" property="classId" />
+    <result column="student_gender" jdbcType="INTEGER" property="studentGender" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    student_id, student_name, class_id, student_gender
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_student
+    where student_id = #{studentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_student
+    where student_id = #{studentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.gzj.model.Student">
+    insert into tb_student (student_id, student_name, class_id, 
+      student_gender)
+    values (#{studentId,jdbcType=BIGINT}, #{studentName,jdbcType=VARCHAR}, #{classId,jdbcType=BIGINT}, 
+      #{studentGender,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gzj.model.Student">
+    insert into tb_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="studentName != null">
+        student_name,
+      </if>
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="studentGender != null">
+        student_gender,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=BIGINT},
+      </if>
+      <if test="studentGender != null">
+        #{studentGender,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gzj.model.Student">
+    update tb_student
+    <set>
+      <if test="studentName != null">
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=BIGINT},
+      </if>
+      <if test="studentGender != null">
+        student_gender = #{studentGender,jdbcType=INTEGER},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gzj.model.Student">
+    update tb_student
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      class_id = #{classId,jdbcType=BIGINT},
+      student_gender = #{studentGender,jdbcType=INTEGER}
+    where student_id = #{studentId,jdbcType=BIGINT}
+  </update>
+
+  <!-- 自定义sql语句 -->
+  <select id="selectStudentByCondition" parameterType="map" resultMap="BaseResultMap">
+    select a.student_id, a.student_name, a.student_gender, a.class_id
+    from tb_student a
+    <where>
+      <if test="studentName!=null and studentName!=''">
+        and a.student_name like concat('%', #{studentName}, '%')
+      </if>
+      <if test="classId!=null and classId!=''">
+        and a.class_id = #{classId}
+      </if>
+      <if test="gender!=null and gender!=''">
+        and a.student_gender = #{studentGender}
+      </if>
+    </where>
+  </select>
+
+  <insert id="insertStudent" parameterType="com.gzj.model.Student" >
+    insert into tb_student (student_name, class_id, student_gender)
+    values (#{studentName},#{classId},#{studentGender} )
+  </insert>
+
+  <update id="updateStudent" parameterType="com.gzj.model.Student" >
+    update tb_student set
+    student_name=#{studentName},class_id=#{classId},student_gender=#{studentGender}
+    where student_id = #{studentId}
+  </update>
+
+  <delete id="deleteStudentByName" parameterType="string" >
+    delete from tb_student where student_name = #{studentName}
+  </delete>
+
+  <select id="selectStudentByTeacherId" parameterType="string" resultMap="BaseResultMap">
+    SELECT a.student_id, a.student_name, a.student_gender, a.class_id
+    from tb_student a
+    JOIN tb_teacher_student b ON a.student_id=b.student_id
+    where b.teacher_id=#{teacherId}
+  </select>
+
+  <select id="selectStudentByClassIds" resultMap="BaseResultMap">
+    SELECT  a.student_name, a.student_gender
+    FROM tb_student a
+    WHERE a.class_id in
+    <foreach collection="classIds" item="classId" index="index" open="(" close=")" separator=",">
+      #{classId}
+    </foreach>
+  </select>
+
+</mapper>
+
