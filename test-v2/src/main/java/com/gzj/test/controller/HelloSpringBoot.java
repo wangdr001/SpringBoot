@@ -10,6 +10,8 @@ public class HelloSpringBoot {
     @RequestMapping("/hello")
     @ResponseBody
     public String helloSpringBoot(){
+
+        //int i = 1/0;
         return "欢迎使用SpringBoot框架";
     }
 }
